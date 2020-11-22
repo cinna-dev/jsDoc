@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: jsDoc Example</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">jsDoc Example</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>jsDoc</h1>
+<p>Initial Release: 1999
+Extended from JavaDoc</p>
+<h2>Installation</h2>
+<pre class="prettyprint source lang-bash"><code>npm init -y
+</code></pre>
+<pre class="prettyprint source lang-bash"><code>mpm i -D jsdoc
+</code></pre>
+<h2>Config</h2>
+<p>create a <code>jsdoc.json</code> in root.</p>
+<ul>
+<li>
+<p>source is where jsdoc looks</p>
+</li>
+<li>
+<p><code>includePattern</code> includes evrything that ends of <code>.js</code>.</p>
+</li>
+<li>
+<p>excluding <code>node_modules/</code> and <code>docs</code>.</p>
+</li>
+<li>
+<p><code>docs</code> will be our destination.</p>
+</li>
+<li>
+<p>plugins allows us to use <code>markdown</code>.</p>
+</li>
+<li>
+<p><code>monospace</code> will be the font of our links in the documentation.</p>
+</li>
+<li>
+<p><code>recurse</code> to recurse into sub folders.</p>
+</li>
+</ul>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;source&quot;:{
+    &quot;include&quot;: [&quot;src&quot;],
+    &quot;includePattern&quot;: &quot;.js$&quot;,
+    &quot;excludePattern&quot;: &quot;(node_modules/|docs)&quot;,
+  },
+  &quot;plugins&quot;: [&quot;plugins/mardown&quot;],
+  &quot;templates&quot;: {
+    &quot;cleverLinks&quot;: true,
+    &quot;monosplaceLinks&quot;: true
+  },
+  &quot;opts&quot;:{
+    &quot;recurse&quot;: true,
+    &quot;destination&quot;: &quot;./docs/&quot;,
+    &quot;template&quot;: &quot;custom-template&quot;
+  }
+}
+</code></pre>
+<h2>add run Script</h2>
+<pre class="prettyprint source lang-json"><code>&quot;scripts&quot;:{
+  &quot;doc&quot;:&quot;jsdoc -c jsdoc.json&quot;
+}
+</code></pre>
+<ul>
+<li><code>-c</code>: config file</li>
+</ul>
+<h2>create src folder</h2>
+<ul>
+<li>create an <code>scr</code> folder in <code>root</code>.</li>
+</ul>
+<h2>create your Doc</h2>
+<p>and run <code>npm run doc</code>.</p>
+<ul>
+<li>one <code>index.html</code> will be generater.</li>
+</ul>
+<h2>Usage</h2>
+<p>other than a <code>multi-line</code> comment</p>
+<pre class="prettyprint source lang-js"><code>/*
+this is a multi-line comment
+*/
+</code></pre>
+<p>we can use the <code>jsDoc</code> comment to write our documentation</p>
+<pre class="prettyprint source lang-js"><code>/**
+ * It is a jsDoc. Can be found above methods and Class definitions.
+ */
+</code></pre>
+<h2>Types checking</h2>
+<p>jsDoc can be used for <strong>Type Checking</strong></p>
+<ul>
+<li>define the type of a variable</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>/**
+ * variable name
+ * @type {string}
+ */
+const name = 'name';
+</code></pre>
+<ul>
+<li>define the type an array is made of</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>/**
+ * @type {Array&lt;number>}
+ */
+const arr = [2,3,4,5];
+</code></pre>
+<ul>
+<li>define the types an Object is made of</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>/**
+ * @type {{id: number, text:string}}
+ */
+const obj = {
+  id: 1,
+  text: 'Hello'
+};
+</code></pre>
+<ul>
+<li>define multiple types</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>/**
+ * @type {{id: number|sting, text:string}}
+ */
+const obj = {
+  id: '1',
+  text: 'Hello'
+};
+</code></pre>
+<h2>Functions and Params</h2>
+<ul>
+<li>jsDoc will automatically recognize a function and pull the parameters from it.</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>/**
+ * Function Description
+ * @param {number} amount - This is a Description of the Parameter intorduced with a Hyphon -
+ * @param {string} tax - This is a  Description of the Parameter
+ * @returns {void} - This is a  Description of the Return
+ */
+</code></pre>
+<p><img src="img/jsDoc1.jpg" alt="Method in Documentation" title="Method in Documentation"></p>
+<p><em>this is how it looks like in the Documentation.</em></p>
+<h2>Type Definition (custom Type)</h2>
+<ul>
+<li>define your own type.</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>/**
+ * @typedef {Object} Student
+ */
+</code></pre>
+<p>*defining Object named Student</p>
+<ul>
+<li>define properties of the object</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>/**
+ * @property {number} id
+ * @property {string} name
+ * @property {string|number} [age]
+ * @property {boolean} isActiv
+ */
+</code></pre>
+<ul>
+<li>use the defined type</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>/**
+ * @type {Student}
+ */
+const student = {
+</code></pre>
+<h2>Link to other parts of the Documentation</h2>
+<pre class="prettyprint source lang-js"><code>/**
+ * <a href="Person.html"><code>Person</code></a>
+ */
+const person1 = new Person();
+</code></pre>
+<h2>Module</h2>
+<pre class="prettyprint source lang-js"><code>/**
+ * Calculator module
+ * @module Calculator
+ */
+
+</code></pre>
+<p><img src="img/link-to-class.jpg" alt="Link Instance to Class" title="Link Instance to Class"></p>
+<h2>Tutorials</h2>
+<ul>
+<li>
+<p>create a <code>tutorials</code> folder in <code>root</code>.</p>
+</li>
+<li>
+<p>insert the <code>tutorials</code> key with the path the folder into <code>jsdoc.json</code>.</p>
+</li>
+</ul>
+<pre class="prettyprint source lang-json"><code>&quot;opts&quot;: {
+  &quot;tutorials&quot;: &quot;./tutorials&quot;
+}
+</code></pre>
+<ul>
+<li>
+<p>create tutorial files inside the <code>tutorials</code> folder</p>
+</li>
+<li>
+<p>when running <code>jsDoc</code> it will incoporate the tutrials into the <strong>Documantation</strong>.</p>
+</li>
+</ul>
+<h3>Customize Naming convention for the Tutorial</h3>
+<ul>
+<li>create a <code>tutorial.json</code> inside the <code>tutorials</code> folder.</li>
+</ul>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;program-tutorial&quot;: {
+    &quot;title&quot;: &quot;Program Tutorial&quot;
+  },
+  &quot;calculator-tutorial&quot;: {
+    &quot;title&quot;: &quot;Calculator Tutorial&quot;
+  }
+}
+</code></pre>
+<p><em>Each tutoral file gets a title defined</em></p>
+<h3>Point to Tutorial</h3>
+<ul>
+<li>use the <strong>@tutorial</strong> tag plus name in Braces</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>/**
+ * Calculator module - See <a href="tutorial-calculator-tutorial.html">Calculator Tutorial</a>
+ */
+</code></pre>
+<h2>Incorporate README file</h2>
+<ul>
+<li>insert the <code>readme</code> key with the path the readme file into <code>jsdoc.json</code>.</li>
+</ul>
+<pre class="prettyprint source lang-json"><code>&quot;opts&quot;: {
+  &quot;readme&quot;: &quot;./README.md&quot;
+}
+</code></pre>
+<h2>Customize jsDoc</h2>
+<ul>
+<li>
+<p>copy the <code>default</code> folder from <code>node_modules/jsdoc/ templates</code> and past it into root. Rename it to 'custom-template` for example.</p>
+</li>
+<li>
+<p>insert the template into your <code>jsdoc.json</code></p>
+</li>
+</ul>
+<pre class="prettyprint source lang-json"><code>&quot;opts&quot;:{
+  &quot;template&quot;: &quot;custom-template&quot;
+}
+</code></pre>
+<h3>Rename the Documentation</h3>
+<ul>
+<li>
+<p>go into <code>custom-template/publish.js</code></p>
+</li>
+<li>
+<p>search for <code>Home</code> and rename it.</p>
+</li>
+</ul>
+<h2>Implicit Type check in VSCode</h2>
+<p><strong>jsDoc</strong> can be used for implicit type checking</p>
+<p>make sure your VSCodes <code>settings.json</code> contains:</p>
+<pre class="prettyprint source lang-json"><code>&quot;javascript.implicitProjectConfig.checkJs&quot;: true,
+</code></pre>
+<p>alternatively put</p>
+<pre class="prettyprint source lang-js"><code>// @ts-check
+</code></pre>
+<p>at the beginning of a file.</p></article>
+    </section>
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>index.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>index.js is the root file for this  example app</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>me</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line9">line 9</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https//mywebsite.com">my website</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">jsDoc Example</a></h2><h3>Modules</h3><ul><li><a href="module-Calculator.html">Calculator</a></li></ul><h3>Classes</h3><ul><li><a href="Person.html">Person</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-calculator-tutorial.html">Calculator Tutorial</a></li><li><a href="tutorial-program-tutorial.html">Program Tutorial</a></li></ul><h3>Global</h3><ul><li><a href="global.html#calculateTax">calculateTax</a></li><li><a href="global.html#grades">grades</a></li><li><a href="global.html#person1">person1</a></li><li><a href="global.html#student">student</a></li><li><a href="global.html#studentName">studentName</a></li><li><a href="global.html#todo">todo</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Nov 22 2020 21:03:15 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
